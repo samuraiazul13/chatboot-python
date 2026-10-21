@@ -6,13 +6,21 @@ from typing import Dict, List
 
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
+<<<<<<< HEAD
 from fastapi.staticfiles import StaticFiles
+=======
+>>>>>>> e5499e62bd688f903389ef815df3b390675b22c2
 from pydantic import BaseModel, Field
 from iagenerativa import generar_respuestas
 
 app = FastAPI(title="Chatbot básico - Shena", version="1.0.0")
+<<<<<<< HEAD
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
+=======
+title="Asistente de información - Ofera educativa"
+
+>>>>>>> e5499e62bd688f903389ef815df3b390675b22c2
 
 class ChatRequest(BaseModel):
     message: str = Field(min_length=1, max_length=2000)
@@ -177,6 +185,7 @@ HTML = r"""<!doctype html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+<<<<<<< HEAD
   <title>CeniChat - Asistente CENIGRAF</title>
   <!-- Enlace al archivo CSS externo -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -251,10 +260,30 @@ HTML = r"""<!doctype html>
     </div>
   </div>
 
+=======
+  <title>Chatbot básico - Shena</title>
+  <style>
+    body { font: 16px system-ui, sans-serif; max-width: 680px; margin: 3rem auto; padding: 0 1rem; color: #202124; }
+    #chat { min-height: 260px; border: 1px solid #ddd; border-radius: 12px; padding: 1rem; margin-bottom: 1rem; }
+    .message { margin: .6rem 0; white-space: pre-wrap; }
+    form { display: flex; gap: .5rem; }
+    input { flex: 1; padding: .8rem; border: 1px solid #aaa; border-radius: 8px; }
+    button { padding: .8rem 1rem; border: 0; border-radius: 8px; background: #1459c7; color: white; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Chatbot básico - Shena</h1>
+  <div id="chat" aria-live="polite"><p class="message">Bot: ¡Hola! Escribe un mensaje para empezar.</p></div>
+  <form id="form">
+    <input id="message" autocomplete="off" placeholder="Escribe tu mensaje…" required maxlength="2000">
+    <button type="submit">Enviar</button>
+  </form>
+>>>>>>> e5499e62bd688f903389ef815df3b390675b22c2
   <script>
     const chat = document.querySelector('#chat');
     const form = document.querySelector('#form');
     const input = document.querySelector('#message');
+<<<<<<< HEAD
     const typingIndicator = document.querySelector('#typingIndicator');
 
     document.getElementById('init-time').textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -298,14 +327,30 @@ HTML = r"""<!doctype html>
       chat.insertBefore(welcomeDiv, typingIndicator);
     }
 
+=======
+
+    function addMessage(who, text) {
+      const p = document.createElement('p');
+      p.className = 'message';
+      p.textContent = `${who}: ${text}`;
+      chat.appendChild(p);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+>>>>>>> e5499e62bd688f903389ef815df3b390675b22c2
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       const message = input.value.trim();
       if (!message) return;
 
+<<<<<<< HEAD
       addMessage('user', message);
       input.value = '';
       showTyping(true);
+=======
+      addMessage('Tú', message);
+      input.value = '';
+>>>>>>> e5499e62bd688f903389ef815df3b390675b22c2
 
       try {
         const response = await fetch('/api/chat', {
@@ -317,14 +362,24 @@ HTML = r"""<!doctype html>
         if (!response.ok) throw new Error('No se pudo obtener una respuesta.');
 
         const data = await response.json();
+<<<<<<< HEAD
         showTyping(false);
         addMessage('bot', data.reply);
       } catch (error) {
         showTyping(false);
         addMessage('bot', `Error: ${error.message}`);
+=======
+        addMessage('Bot', data.reply);
+      } catch (error) {
+        addMessage('Bot', `Error: ${error.message}`);
+>>>>>>> e5499e62bd688f903389ef815df3b390675b22c2
       }
     });
   </script>
 </body>
+<<<<<<< HEAD
 </html>
 """
+=======
+</html>"""
+>>>>>>> e5499e62bd688f903389ef815df3b390675b22c2

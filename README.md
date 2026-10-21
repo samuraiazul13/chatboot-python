@@ -47,6 +47,7 @@ La página incluida ya realiza esta llamada. Una app móvil, React, Vue o cualqu
 ## Personalizar
 
 Edita la función `responder()` en `chatbot.py`. Actualmente responde mediante reglas simples; no usa inteligencia artificial ni guarda conversaciones. Para conectarlo a un modelo de lenguaje, sustituye esa función por una llamada a la API del proveedor elegido y guarda las credenciales en variables de entorno, nunca en el código del navegador.
+<<<<<<< HEAD
 
 
 Instalación:
@@ -56,3 +57,5 @@ Clona este repositorio.
 Crea un archivo llamado .env basado en el archivo .env.example e ingresa tu propia GEMINI_API_KEY.
 
 Instala las dependencias y ejecuta uvicorn chatbot:app --reload.
+=======
+>>>>>>> e5499e62bd688f903389ef815df3b390675b22c2
