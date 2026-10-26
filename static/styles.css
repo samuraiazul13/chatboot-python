@@ -314,17 +314,92 @@ form input {
   background: var(--primary-hover);
 }
 
-/* Diseño responsivo para celulares */
+/* ===== Responsive (tablet y celular) ===== */
+/* ===== Responsive (tablet y celular) ===== */
 @media (max-width: 900px) {
+  body {
+    padding: 0;
+  }
+
   .app-container {
     height: 100vh;
+    height: 100dvh;
+    max-width: none;
     border-radius: 0;
     border: none;
   }
-  .sidebar {
-    display: none;
+
+  .chat-header,
+  #chat,
+  .chat-input-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
+
+  .message {
+    max-width: 90%;
+  }
+
+  #message {
+    font-size: 16px;
+  }
+
+  /* Preguntas frecuentes arriba, en una fila deslizable */
+  .chat-body-wrapper {
+    flex-direction: column;
+  }
+
   .faq-sidebar {
+    width: 100%;
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.75rem 1rem;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+  }
+
+  .faq-sidebar h3 {
     display: none;
   }
+
+  .faq-btn {
+    width: auto;
+    flex: 0 0 auto;
+    white-space: nowrap;
+    margin-bottom: 0;
+  }
+
+  .chat-body-wrapper > .flex-grow-1 {
+    min-height: 0;
+  }
+}
+
+.header-info h1,
+.header-info p {
+  margin: 0;
+}
+
+/* Aviso flotante al vaciar el chat */
+.toast-msg {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--sidebar-bg);
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.toast-msg.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }

@@ -6,21 +6,13 @@ from typing import Dict, List
 
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-<<<<<<< HEAD
 from fastapi.staticfiles import StaticFiles
-=======
->>>>>>> e5499e62bd688f903389ef815df3b390675b22c2
 from pydantic import BaseModel, Field
 from iagenerativa import generar_respuestas
 
 app = FastAPI(title="Chatbot básico - Shena", version="1.0.0")
-<<<<<<< HEAD
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
-=======
-title="Asistente de información - Ofera educativa"
-
->>>>>>> e5499e62bd688f903389ef815df3b390675b22c2
 
 class ChatRequest(BaseModel):
     message: str = Field(min_length=1, max_length=2000)
@@ -185,35 +177,35 @@ HTML = r"""<!doctype html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-<<<<<<< HEAD
-  <title>CeniChat - Asistente CENIGRAF</title>
-  <!-- Enlace al archivo CSS externo -->
+  <title>Shena - Asistente CENIGRAF</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
 
   <div class="app-container">
-  <!-- Barra lateral con iconos profesionales -->
-  <div class="sidebar">
-    <div class="sidebar-icon active" title="Chat"><i class="fa-solid fa-comment-dots"></i></div>
-    <div class="sidebar-icon" title="Programas"><i class="fa-solid fa-graduation-cap"></i></div>
-    <div class="sidebar-icon" title="Requisitos"><i class="fa-solid fa-file-lines"></i></div>
-    <div class="sidebar-icon" title="Ubicación"><i class="fa-solid fa-location-dot"></i></div>
-    <div class="sidebar-footer">
-      <div class="sidebar-icon" title="Configuración"><i class="fa-solid fa-gear"></i></div>
+    <!-- Barra lateral: oculta en celular/tablet, visible desde 992px -->
+    <div class="sidebar d-none d-lg-flex">
+      <div class="sidebar-icon active" title="Chat"><i class="fa-solid fa-comment-dots"></i></div>
+      <div class="sidebar-icon" title="Programas"><i class="fa-solid fa-graduation-cap"></i></div>
+      <div class="sidebar-icon" title="Requisitos"><i class="fa-solid fa-file-lines"></i></div>
+      <div class="sidebar-icon" title="Ubicación"><i class="fa-solid fa-location-dot"></i></div>
+      <div class="sidebar-footer">
+        <div class="sidebar-icon" title="Configuración"><i class="fa-solid fa-gear"></i></div>
+      </div>
     </div>
-  </div>
 
     <!-- Área principal de chat -->
     <div class="chat-area">
       <div class="chat-header">
         <div class="header-info">
-          <h1>🤖 CeniChat</h1>
+          <h1>🤖 Shena</h1>
           <p>Asistente de información - Oferta educativa CENIGRAF</p>
         </div>
         <div class="header-actions">
-          <div class="nav-links">
+          <!-- Enlaces: ocultos en celular, visibles desde 768px -->
+          <div class="nav-links d-none d-md-flex">
             <span>🏠 Inicio</span>
             <span>ℹ️ Sobre CENIGRAF</span>
             <span>🎓 Programas</span>
@@ -226,7 +218,7 @@ HTML = r"""<!doctype html>
       </div>
 
       <div class="chat-body-wrapper">
-        <!-- Panel de Preguntas Frecuentes -->
+        <!-- Preguntas frecuentes: columna en PC, fila deslizable en celular -->
         <div class="faq-sidebar">
           <h3>❓ Preguntas frecuentes</h3>
           <button class="faq-btn" onclick="sendPreset('¿Qué programas ofrece CENIGRAF?')">🎓 ¿Qué programas ofrece CENIGRAF?</button>
@@ -234,12 +226,14 @@ HTML = r"""<!doctype html>
           <button class="faq-btn" onclick="sendPreset('¿Cómo es el proceso de matrícula?')">💳 ¿Cómo es el proceso de matrícula?</button>
           <button class="faq-btn" onclick="sendPreset('¿Dónde se encuentra CENIGRAF?')">📍 ¿Dónde se encuentra CENIGRAF?</button>
           <button class="faq-btn" onclick="sendPreset('¿Cuáles son los horarios?')">⏱️ ¿Cuáles son los horarios?</button>
+          <button class="faq-btn" onclick="sendPreset('Contrato de aprendizaje')">📝 Contrato de aprendizaje</button>
         </div>
 
-        <div style="flex: 1; display: flex; flex-direction: column;">
+        <!-- Columna del chat (clases de Bootstrap en vez de style inline) -->
+        <div class="flex-grow-1 d-flex flex-column">
           <div id="chat" aria-live="polite">
             <div class="message bot">
-              ¡Hola! 👋 Soy CeniChat, tu asistente virtual. Puedo ayudarte con información sobre nuestros programas, requisitos, matrícula y más. Selecciona una pregunta frecuente o escribe tu consulta.
+              ¡Hola! 👋 Soy Shena, tu asistente virtual. Puedo ayudarte con información sobre nuestros programas, requisitos, matrícula y más. Selecciona una pregunta frecuente o escribe tu consulta.
               <div class="message-time" id="init-time"></div>
             </div>
             <!-- Indicador de respuesta -->
@@ -260,30 +254,10 @@ HTML = r"""<!doctype html>
     </div>
   </div>
 
-=======
-  <title>Chatbot básico - Shena</title>
-  <style>
-    body { font: 16px system-ui, sans-serif; max-width: 680px; margin: 3rem auto; padding: 0 1rem; color: #202124; }
-    #chat { min-height: 260px; border: 1px solid #ddd; border-radius: 12px; padding: 1rem; margin-bottom: 1rem; }
-    .message { margin: .6rem 0; white-space: pre-wrap; }
-    form { display: flex; gap: .5rem; }
-    input { flex: 1; padding: .8rem; border: 1px solid #aaa; border-radius: 8px; }
-    button { padding: .8rem 1rem; border: 0; border-radius: 8px; background: #1459c7; color: white; cursor: pointer; }
-  </style>
-</head>
-<body>
-  <h1>Chatbot básico - Shena</h1>
-  <div id="chat" aria-live="polite"><p class="message">Bot: ¡Hola! Escribe un mensaje para empezar.</p></div>
-  <form id="form">
-    <input id="message" autocomplete="off" placeholder="Escribe tu mensaje…" required maxlength="2000">
-    <button type="submit">Enviar</button>
-  </form>
->>>>>>> e5499e62bd688f903389ef815df3b390675b22c2
   <script>
     const chat = document.querySelector('#chat');
     const form = document.querySelector('#form');
     const input = document.querySelector('#message');
-<<<<<<< HEAD
     const typingIndicator = document.querySelector('#typingIndicator');
 
     document.getElementById('init-time').textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -295,14 +269,14 @@ HTML = r"""<!doctype html>
     function addMessage(sender, text) {
       const div = document.createElement('div');
       div.className = `message ${sender}`;
-      
+
       const timeSpan = document.createElement('div');
       timeSpan.className = 'message-time';
       timeSpan.textContent = getCurrentTime();
 
       div.textContent = text;
       div.appendChild(timeSpan);
-      
+
       chat.insertBefore(div, typingIndicator);
       chat.scrollTop = chat.scrollHeight;
     }
@@ -320,37 +294,61 @@ HTML = r"""<!doctype html>
     function clearChat() {
       const messages = chat.querySelectorAll('.message');
       messages.forEach(msg => msg.remove());
-      
+
       const welcomeDiv = document.createElement('div');
       welcomeDiv.className = 'message bot';
-      welcomeDiv.innerHTML = `¡Hola! 👋 Soy CeniChat, tu asistente virtual. Puedo ayudarte con información sobre nuestros programas, requisitos, matrícula y más. Selecciona una pregunta frecuente o escribe tu consulta.<div class="message-time">${getCurrentTime()}</div>`;
+      welcomeDiv.innerHTML = `¡Hola! 👋 Soy Shena, tu asistente virtual. Puedo ayudarte con información sobre nuestros programas, requisitos, matrícula y más. Selecciona una pregunta frecuente o escribe tu consulta.<div class="message-time">${getCurrentTime()}</div>`;
       chat.insertBefore(welcomeDiv, typingIndicator);
+
+      showToast('🗑️ El chat se vació correctamente');
     }
 
-=======
+    // Muestra un aviso pequeño que desaparece solo
+    function showToast(texto) {
+      const toast = document.createElement('div');
+      toast.textContent = texto;
 
-    function addMessage(who, text) {
-      const p = document.createElement('p');
-      p.className = 'message';
-      p.textContent = `${who}: ${text}`;
-      chat.appendChild(p);
-      chat.scrollTop = chat.scrollHeight;
+      // Estilos directos: no depende de styles.css
+      Object.assign(toast.style, {
+        position: 'fixed',
+        bottom: '100px',
+        left: '50%',
+        transform: 'translateX(-50%) translateY(20px)',
+        background: '#2C4A47',
+        color: '#fff',
+        padding: '0.75rem 1.25rem',
+        borderRadius: '10px',
+        fontSize: '0.9rem',
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+        opacity: '0',
+        transition: 'all 0.3s ease',
+        zIndex: '1000'
+      });
+
+      document.body.appendChild(toast);
+
+      // Aparece
+      setTimeout(() => {
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateX(-50%) translateY(0)';
+      }, 10);
+
+      // Desaparece a los 2,5 segundos
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(-50%) translateY(20px)';
+        setTimeout(() => toast.remove(), 300);
+      }, 2500);
     }
 
->>>>>>> e5499e62bd688f903389ef815df3b390675b22c2
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       const message = input.value.trim();
       if (!message) return;
 
-<<<<<<< HEAD
       addMessage('user', message);
       input.value = '';
       showTyping(true);
-=======
-      addMessage('Tú', message);
-      input.value = '';
->>>>>>> e5499e62bd688f903389ef815df3b390675b22c2
 
       try {
         const response = await fetch('/api/chat', {
@@ -362,24 +360,14 @@ HTML = r"""<!doctype html>
         if (!response.ok) throw new Error('No se pudo obtener una respuesta.');
 
         const data = await response.json();
-<<<<<<< HEAD
         showTyping(false);
         addMessage('bot', data.reply);
       } catch (error) {
         showTyping(false);
         addMessage('bot', `Error: ${error.message}`);
-=======
-        addMessage('Bot', data.reply);
-      } catch (error) {
-        addMessage('Bot', `Error: ${error.message}`);
->>>>>>> e5499e62bd688f903389ef815df3b390675b22c2
       }
     });
   </script>
 </body>
-<<<<<<< HEAD
 </html>
 """
-=======
-</html>"""
->>>>>>> e5499e62bd688f903389ef815df3b390675b22c2
